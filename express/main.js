@@ -6,8 +6,8 @@ require('./config/db');
 var config = require('./config/index');
 
  express.use(bodyParser.urlencoded({ extended: false }));
-express.use(bodyParser.json());
-express.use(bodyParser());
+/* express.use(bodyParservar .json());
+express.use(bodyParser()); */
 
 /* Routing level middleware */
 var authRouter = require('./controllers/auth.routes');
@@ -50,6 +50,5 @@ express.listen(config.port, function (err, done) {
     }
     console.log('Press Ctrl+C to Exit');
 })
-
 
 
