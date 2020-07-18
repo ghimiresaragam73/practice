@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; //import is syntax es6 way of calling another file(require in es5)
 
 @Component({
   selector: 'app-root',

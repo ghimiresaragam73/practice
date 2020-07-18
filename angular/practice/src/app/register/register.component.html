@@ -1,0 +1,35 @@
+<h2>Smart Project Management</h2>
+<p>Please register to use our service</p>
+
+<form #registerForm="ngForm" class="form-group" novalidate>
+    <label for="name">Name</label>
+    <input class="form-control" type="text" placeholder="Name" name="name" [(ngModel)]="user.name" required #name="ngModel">
+    <div class="danger" [hidden]="name.valid||name.pristine">Required Feild*</div>
+
+    <label for="emailaddress">Email Address</label>
+    <input class="form-control" type="text" placeholder="Email Address" name="emailaddress" [(ngModel)]="user.emailaddress" required #emailaddress="ngModel">
+    <div class="danger" [hidden]="emailaddress.valid||emailaddress.pristine">Required Feild*</div>
+
+    <label for="username">Username</label>
+    <input class="form-control" type="text" placeholder="Username" name="username" [(ngModel)]="user.username" required #username="ngModel">
+    <div class="danger" [hidden]="username.valid||username.pristine">Required Field*</div>
+
+    <label for="password">Password</label>
+    <input class="form-control" type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required #password="ngModel">
+    <div class="danger" *ngIf="password.invalid && password.dirty">Required Field*</div>
+
+    <label for="phonenumber">Phone Number</label>
+    <input class="form-control" type="number" placeholder="Phone Number" name="phonenumber" [(ngModel)]="user.phonenumber" #phonenumber="ngModel">
+
+    <label for="dob">Date of Birth</label>
+    <input class="form-control" type="date" placeholder="Date of Birth" name="dob" [(ngModel)]="user.dob" #phonenumber="ngModel">
+
+    <label for="gender">Gender</label>
+    <input class="form-control" type="text" placeholder="Gender" name="gender" [(ngModel)]="user.gender" #gender="ngModel">
+
+    <button [disabled]="registerForm.invalid" *ngIf="!submitting" class="btn btn-primary" (click)="register()">Register</button>
+    <button disabled *ngIf="submitting" class="btn btn-info">Registering...</button>
+
+</form>
+<p>Already have an account</p>
+<p><a href="">Sign Up Here</a></p>
