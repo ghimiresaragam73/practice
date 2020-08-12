@@ -1,20 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import {ToastrModule} from 'ngx-toastr'
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { AppRoutingModule } from './app.routing';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    AppRoutingModule,
+    AuthModule,
+    UsersModule,
+    SharedModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent] //root component is required to start angular application 

@@ -7,16 +7,23 @@
     <div class="danger" [hidden]="name.valid||name.pristine">Required Feild*</div>
 
     <label for="emailaddress">Email Address</label>
-    <input class="form-control" type="text" placeholder="Email Address" name="emailaddress" [(ngModel)]="user.emailaddress" required #emailaddress="ngModel">
-    <div class="danger" [hidden]="emailaddress.valid||emailaddress.pristine">Required Feild*</div>
+    <input class="form-control" type="text" placeholder="Email Address" name="emailaddress" [(ngModel)]="user.emailaddress" required email #emailaddress="ngModel">
+    <div class="danger" *ngIf="emailaddress.errors && emailaddress.dirty">
+        <div *ngIf="emailaddress.errors.required">Required Field*</div>
+        <div *ngIf="emailaddress.errors.email">Not a Valid Email</div>
+    </div>
 
     <label for="username">Username</label>
     <input class="form-control" type="text" placeholder="Username" name="username" [(ngModel)]="user.username" required #username="ngModel">
-    <div class="danger" [hidden]="username.valid||username.pristine">Required Field*</div>
+    <div class="danger" [hidden]="username.valid || username.pristine">Required Field*</div>
 
     <label for="password">Password</label>
-    <input class="form-control" type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required #password="ngModel">
-    <div class="danger" *ngIf="password.invalid && password.dirty">Required Field*</div>
+    <input class="form-control" type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required minlength="5" maxlength="15" #password="ngModel">
+    <div class="danger" *ngIf="password.errors && password.dirty">
+        <div *ngIf="password.errors.required">Required Field*</div>
+        <div *ngIf="password.errors.minlength">Weak Password</div>
+    </div>
+    <div *ngIf="password.valid">Tick Mark</div>
 
     <label for="phonenumber">Phone Number</label>
     <input class="form-control" type="number" placeholder="Phone Number" name="phonenumber" [(ngModel)]="user.phonenumber" #phonenumber="ngModel">
@@ -32,4 +39,4 @@
 
 </form>
 <p>Already have an account</p>
-<p><a href="">Sign Up Here</a></p>
+<p><a routerLink="/auth/login">Log In Here</a></p>
