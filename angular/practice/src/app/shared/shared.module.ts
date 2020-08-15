@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HeaderComponent } from './header/header.component';
+import { MsgService } from './services/msg.service';
 
 
 
@@ -14,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
   imports: [
     CommonModule
   ],
-  exports:[HeaderComponent]
+  exports: [HeaderComponent],
+  providers: [MsgService] //service has global scope
 })
 export class SharedModule { }
