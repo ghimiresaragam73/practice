@@ -8,4 +8,3 @@ import { Component } from '@angular/core'; //import is syntax es6 way of calling
 export class AppComponent {
   title = 'practice';
 }
- 
