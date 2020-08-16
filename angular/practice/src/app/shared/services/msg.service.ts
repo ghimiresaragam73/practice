@@ -16,11 +16,17 @@ export class MsgService {
         this.toastr.warning(msg);
     }
     showError(err: any) {
-        debugger;
         //debugger will pause the application and we can see the data and control
         //use this block as error handler
         //pass every possible error from your application here
         //parse the error data and show appropriate error message
+        if (err.error) {
+            this.error(err.error.message);
+        }
+        debugger;
+    }
+    private error(errMsg) {
+        this.toastr.error(errMsg);
     }
 
 }

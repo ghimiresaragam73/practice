@@ -24,40 +24,40 @@ export class LoginComponent {
         }
     }
 
-    askMoney() {
-        return new Promise((resolve, reject) => {
-            setInterval(() => {
-                console.log('I am called')
-                resolve(15000);
-            }, 1000)
-        })
-    }
-
-    watchSherlockHolmes() {
-        return Observable.create((observer) => {
-            let i = 0;
-            setInterval(() => {
-                observer.next('episode ' + ++i);
-                if (i == 4) {
-                    observer.complete();
-                }
-                //observer.error('error');
-                //observer.complete('Completed');
-            }, 1000);
-        })
-    }
+    /*  askMoney() {
+         return new Promise((resolve, reject) => {
+             setInterval(() => {
+                 console.log('I am called')
+                 resolve(15000);
+             }, 1000)
+         })
+     }
+ 
+     watchSherlockHolmes() {
+         return Observable.create((observer) => {
+             let i = 0;
+             setInterval(() => {
+                 observer.next('episode ' + ++i);
+                 if (i == 4) {
+                     observer.complete();
+                 }
+                 //observer.error('error');
+                 //observer.complete('Completed');
+             }, 1000);
+         })
+     } */
 
     login() {
-        this.msgService.showInfo('Login in progress');
-        //console.log(this.authService.upper('hello'));
         this.authService.login(this.user)
             .subscribe(
                 data => {
-                    console.log('data is ', data);
-                    this.msgService.showSuccess('Login Successful')
+                    console.log('data >> ', data);
+                    this.msgService.showSuccess('Login Successful');
+                    this.router.navigate(['/user'])
                 },
                 err => {
-                    console.log('err is ', err);
+                    //if error /// send error data to message service show Error Method
+                    this.msgService.showError(err);
                 },
             )
 
