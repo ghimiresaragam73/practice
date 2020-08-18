@@ -18,6 +18,10 @@ const appRoute: Routes = [
     loadChildren:'./users/users.module#UsersModule'
   },
   {
+    path:'product',
+    loadChildren:'./products/products.module#ProductsModule'
+  },
+  {
     path:'**',
     component:PageNotFoundComponent
   }

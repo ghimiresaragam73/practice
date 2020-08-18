@@ -15,13 +15,19 @@ import { MsgService } from './../../shared/services/msg.service';
 export class LoginComponent {
     user;
     submitting: boolean = false;
+    rememberMe = false;
     constructor(public router: Router,
         public authService: AuthService,
-        public msgService: MsgService) {
+        public msgService: MsgService,) {
+            /* if(localStorage.getItem('remember')=='okay' && localStorage.getItem('token')){
+                this.router.navigate(['/user']);
+                console.log(localStorage.getItem('remember'))
+              } */
         this.user = {
             username: '',
             password: ''
         }
+
     }
 
     /*  askMoney() {
@@ -50,10 +56,16 @@ export class LoginComponent {
     login() {
         this.authService.login(this.user)
             .subscribe(
-                data => {
+                (data: any) => {
                     console.log('data >> ', data);
                     this.msgService.showSuccess('Login Successful');
-                    this.router.navigate(['/user'])
+                    //store data in local storage
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    if (this.rememberMe) {
+                        localStorage.setItem('Remeber', 'okay')
+                    }
+                    this.router.navigate(['/user']);
                 },
                 err => {
                     //if error /// send error data to message service show Error Method
@@ -111,4 +123,11 @@ export class LoginComponent {
                      this.toastr.info('You must be redirected to dashboard')
                  }, 2000); */
     }
+
+    rememberMeChanged() {
+        console.log('rember me clicked');
+        this.rememberMe = !this.rememberMe;
+    }
 }
+
+
