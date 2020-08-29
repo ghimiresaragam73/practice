@@ -15,8 +15,7 @@ var productSchema = new Schema({
         type: String
     },
     category: {
-        type: String,
-        required: true
+        type: String
     },
     discription: String,
     brand: String,

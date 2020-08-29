@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable() //decorator to define class of service
 
 export class AuthService {
     url: string
     constructor(public http: HttpClient) {
-        this.url = 'http://localhost:4000/auth/';
+        this.url = environment.baseUrl + 'auth/';
     }
 
     getOptions() {

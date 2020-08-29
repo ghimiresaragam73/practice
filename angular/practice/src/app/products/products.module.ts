@@ -7,6 +7,8 @@ import { SearchProductComponent } from './search-product/search-product.componen
 import { FormsModule } from '@angular/forms';
 import { ProductRoutingModule } from './products.routing';
 import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductService } from './services/product.services';
 
 
 
@@ -20,7 +22,9 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     FormsModule,
     ProductRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    HttpClientModule
+  ],
+  providers:[ProductService]
 })
 export class ProductsModule { }

@@ -1,1 +1,35 @@
-<p>add-product works!</p>
+<h2>Add Product</h2>
+<form class="form-group" #productForm="ngForm" novalidate>
+    <label for="name">Name</label>
+    <input class="form-control" type="text" name="name" placeholder="Name" [(ngModel)]="product.name">
+    <label for="category">Category</label>
+    <input class="form-control" type="text" name="category" placeholder="Category" [(ngModel)]="product.category">
+    <label for="price">Price</label>
+    <input class="form-control" type="number" name="price" placeholder="Price" [(ngModel)]="product.price">
+    <label for="color">Color</label>
+    <input class="form-control" type="text" name="color" placeholder="Color" [(ngModel)]="product.color">
+    <label for="tags">Tags</label>
+    <input class="form-control" type="text" name="tags" placeholder="Tags" [(ngModel)]="product.tags">
+    <label for="discription">Discription</label>
+    <input class="form-control" type="text" name="discription" placeholder="Discription" [(ngModel)]="product.discription">
+    <label for="brand">Brand</label>
+    <input class="form-control" type="text" name="brand" placeholder="Brand" [(ngModel)]="product.brand">
+    <label for="modelNo">Model Number</label>
+    <input class="form-control" type="text" name="modelNo" placeholder="Model Number" [(ngModel)]="product.modelNo">
+    <label for="warrentyStatus">Warrenty Status</label>
+    <input class="form-control" type="text" name="warrentyStatus" placeholder="Warrenty Status" [(ngModel)]="product.warrentyStatus">
+    <label for="quantity">Quantity</label>
+    <input class="form-control" type="number" name="quantity" placeholder="Quantity" [(ngModel)]="product.quantity">
+    <label for="size">Size</label>
+    <input class="form-control" type="text" name="size" placeholder="Size" [(ngModel)]="product.size">
+    <label for="varient">Varient</label>
+    <input class="form-control" type="text" name="varient" placeholder="Varient" [(ngModel)]="product.varient">
+    <label for="manuDate">Manufacture Date</label>
+    <input class="form-control" type="date" name="manuDate" placeholder="Manufacture Date" [(ngModel)]="product.manuDate">
+    <label for="expiryDate">Expiry Date</label>
+    <input class="form-control" type="date" name="expiryDate" placeholder="Expiry Date" [(ngModel)]="product.expiryDate">
+    <label for="origin">Origin</label>
+    <input class="form-control" type="text" name="origin" placeholder="Origin" [(ngModel)]="product.origin">
+    <button [disabled]="productForm.invalid" (click)="submit()" *ngIf="!submitting" class="btn btn-primary">Submit</button>
+    <button disabled *ngIf="submitting" class="btn btn-primary">Submitting</button>
+</form>

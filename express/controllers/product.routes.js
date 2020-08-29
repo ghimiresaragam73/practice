@@ -8,7 +8,7 @@ var storage = multer.diskStorage({
         cb(null, './files/images');
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname);
+        cb(null, file.originalname + '_' + Date.now());
     }
 });
 
@@ -34,7 +34,8 @@ router.route('/')
         console.log('req.body is>>>>', req.body);
         var newProduct = new productModel({});
         newproduct = productHelp(newProduct, req.body);
-        newProduct.image = req.file.filename;
+        if (req.file)
+            newProduct.image = req.file.filename;
         newProduct.user = req.loggedInUser._id;
 
 
@@ -46,6 +47,7 @@ router.route('/')
             res.json(product);
         })
     })
+
 
 router.route('/search')
     .get(function (req, res, next) {
