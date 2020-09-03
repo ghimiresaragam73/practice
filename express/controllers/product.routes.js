@@ -1,6 +1,7 @@
 var productModel = require('./../models/product.model');
 var router = require('express').Router();
 var multer = require('multer');
+var fs = require('fs');
 /* var upload = multer({ dest: './uploads/' }); */
 /* Diskstorage */
 var storage = multer.diskStorage({
@@ -8,12 +9,22 @@ var storage = multer.diskStorage({
         cb(null, './files/images');
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname + '_' + Date.now());
+        cb(null, Date.now() + '_' + file.originalname);
     }
 });
 
+function imageFilter(req, file, cb) {
+    var imageType = file.mimetype.split('/')[0];
+    if (imageType == 'image') {
+        cb(null, true);
+    } else {
+        req.fileError = true;
+        cb(null, false);
+    }
+}
 var upload = multer({
-    storage: storage
+    storage: storage,
+    fileFilter: imageFilter
 });
 var authorize = require('./../middlewares/authorize');
 var productHelp = require('./../helper/productHelp');
@@ -32,6 +43,26 @@ router.route('/')
     .post(upload.single('img'), function (req, res, next) {
         console.log('file is>>>>>', req.file);
         console.log('req.body is>>>>', req.body);
+        /*  if (req.file) {
+             var mimeType = req.file.mimetype;
+             var imageType = mimeType.split('/')[0];
+             if (imageType !== 'image') {
+                 console.log('file removing before  ');
+                 fs.unlink('./files/images/' + req.file.filename, function (err, done) {
+                     if (err) {
+                         console.log('file removing failed>>>', err);
+                     } else {
+                         console.log('file removed>>>>', done);
+                     }
+                 })
+                 return next('Invalid file format');
+             }
+         } */
+        if (req.fileError) {
+            return next({
+                message: 'Invalid File Format'
+            })
+        }
         var newProduct = new productModel({});
         newproduct = productHelp(newProduct, req.body);
         if (req.file)
@@ -49,6 +80,7 @@ router.route('/')
     })
 
 
+
 router.route('/search')
     .get(function (req, res, next) {
         var condition = {};
@@ -64,16 +96,19 @@ router.route('/search')
     .post(function (req, res, next) {
         var condition = {};
         var searchCondition = productHelp(condition, req.body);
+        console.log('Search Condition>>>',searchCondition);
         productModel.find(searchCondition)
             .exec(function (err, products) {
                 if (err) {
+                    console.log('errorrrrrrr>>>>>>', err);
                     return next(err);
                 }
+                console.log('Productsssss>>>', products);
                 res.json(products);
             })
     })
 
-router.route('/:id')
+    router.route('/:id')
     .get(function (req, res, next) {
         productModel.findOne({
             _id: req.params.id
@@ -85,7 +120,12 @@ router.route('/:id')
                 next(err);
             })
     })
-    .put(function (req, res, next) {
+    .put(upload.single('img'), function (req, res, next) {
+        if (req.fileError) {
+            next({
+                message: 'invalid file format'
+            });
+        }
         var id = req.params.id;
         productModel.findById(id)
             .exec(function (err, product) {
@@ -95,6 +135,17 @@ router.route('/:id')
                 if (product) {
                     var updatedProduct = productHelp(product, req.body);
                     updatedProduct.user = req.loggedInUser._id;
+
+                    if (req.file) {
+                        fs.unlink('./files/images/' + product.image, function (err, done) {
+                            if (err) {
+                                console.log('File Removing Failed>>', err);
+                            } else {
+                                console.log('File Removed');
+                            }
+                        })
+                        updatedProduct.image = req.file.filename;
+                    }
                     updatedProduct.save(function (err, updated) {
                         if (err) {
                             return next(err);
@@ -124,6 +175,7 @@ router.route('/:id')
                 next(err);
             })
     });
+
 
 
 module.exports = router;
