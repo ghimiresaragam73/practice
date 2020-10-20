@@ -1,0 +1,16 @@
+<h2>Product Management</h2>
+<p>please login to start your session</p>
+<form #loginForm="ngForm" class="form-group" novalidate>
+    <label for="username">Username</label>
+    <input class="form-control" type="text" placeholder="Username" name="username" [(ngModel)]="user.username" required #username="ngModel">
+    <div class="danger" [hidden]="username.valid || username.pristine">Required Field</div>
+    <label for="password">Password</label>
+    <input class="form-control" type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required #password="ngModel">
+    <div class="danger" *ngIf="password.invalid && password.dirty">Required Field</div>
+    <button [disabled]="loginForm.invalid" *ngIf ="!submitting" class="btn btn-primary" (click)="login()">Login</button>
+    <button disabled *ngIf="submitting" class="btn btn-info">Logging In</button>
+</form>
+<p>Don't have an account?</p>
+<p><a href="">Register Here</a></p>
+
+<!-- template variable => any keyword that are used with #prefix inside html file is template variable -->

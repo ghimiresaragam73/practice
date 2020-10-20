@@ -1,0 +1,41 @@
+<h2>Product Management</h2>
+<p>Please Register to start your session</p>
+<form #registerForm="ngForm" novalidate class="form-group">
+    <label for="name">Name</label>
+    <input class="form-control" type="text" placeholder="Name" name="name" [(ngModel)]="user.name" #name="ngModel"
+        required>
+    <div class="danger" *ngIf="name.invalid && name.dirty">Required Field</div>
+
+    <label for="address">Address</label>
+    <input class="form-control" type="text" placeholder="Address" name="Address" [(ngModel)]="user.address"
+        #address="ngModel">
+
+    <label for="email">Email Address</label>
+    <input class="form-control" type="text" placeholder="Email Address" name="email" [(ngModel)]="user.email"
+        #email="ngModel">
+
+    <label for="username">Username</label>
+    <input class="form-control" type="text" placeholder="Username" name="username" [(ngModel)]="user.username"
+        #username="ngModel" required>
+    <div class="danger" *ngIf="username.invalid && username.dirty">Required Field</div>
+
+    <label for="password">Password</label>
+    <input class="form-control" type="password" placeholder="Password" name="password" [(ngModel)]='user.password'
+        #password="ngModel" required minlength="6">
+    <div class="danger" *ngIf="password.errors && password.dirty">
+        <div *ngIf=password.errors.required>Required Field</div>
+        <div *ngIf="password.errors.minlength">Weak Password</div>
+    </div>
+    <div *ngIf="password.valid">Tick</div>
+
+    <label for="phone">Mobile Number</label>
+    <input class="form-control" type="number" placeholder="Mobile Number" name="phone" [(ngModel)]="user.phone"
+        #phone="ngModel">
+
+    <label for="dob">Date of Birth</label>
+    <input class="form=control" type="date" name="dob" [(ngModel)]="user.dob" #dob="ngModel">
+    <br>
+    <button [disabled]="registerForm.invalid" *ngIf="!submitting" class="btn btn-primary"
+        (click)="register()">Register</button>
+    <button disable *ngIf="submitting" class="btn btn-info">Registering</button>
+</form>
