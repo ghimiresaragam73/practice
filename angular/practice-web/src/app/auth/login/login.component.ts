@@ -1,4 +1,7 @@
 import { Component } from "@angular/core";
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { MsgService } from './../../shared/services/msg.service'
 
 @Component({
     selector: 'app-login',
@@ -8,8 +11,10 @@ import { Component } from "@angular/core";
 
 export class LoginComponent {
     user;
-    submitting:boolean = false;
-    constructor() {
+    submitting: boolean = false;
+    constructor(public router: Router,
+        public authService: AuthService,
+        public msgService: MsgService) {
         this.user = {
             username: '',
             password: '',
@@ -17,11 +22,24 @@ export class LoginComponent {
     }
     login() {
         this.submitting = true;
-        console.log('this.username>>', this.user);
-        /* alert('I am called'); */
+        this.authService.login(this.user)
+            .subscribe(
+                data => {
+                    console.log('data is >>', data);
+                    this.msgService.showSuccess('Login Successful');
+                    this.router.navigate(['/user']);
+                },
+                err => {
+                    console.log('error>>', err);
+                    this.msgService.showError(err);
+                }
+            )
+        /* console.log('this.username>>', this.user);
         setTimeout(() => {
             this.submitting = false;
         }, 3000);
+        /* alert('I am called'); */
+        this.submitting = false;
     }
 }
 
