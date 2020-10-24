@@ -6,6 +6,7 @@ require('./config/db');
 var config = require('./config/index');
 const morgan = require('morgan');
 const cors = require('cors');
+
 express.use(bodyParser.urlencoded({ extended: false }));
 express.use(bodyParser.json());
 //express.use(bodyParser());
@@ -30,7 +31,7 @@ express.use('/file', app.static(path.join(__dirname, 'files'))) /* When other pr
 
 express.use('/auth', authRouter);
 express.use('/user', authenticate, userRouter);
-express.use('/product',authenticate, productRouter);
+express.use('/product', authenticate, productRouter);
 
 
 express.use(function (req, res, next) {
@@ -38,10 +39,10 @@ express.use(function (req, res, next) {
 })
 /* Error handling middleware */
 express.use(function (err, req, res, next) {
-    console.log('I am error handling middleware>>>',err);
+    console.log('I am error handling middleware>>>', err);
     res.status(err.status || 400);
     res.json({
-         message: err.message || err.msg || err
+        message: err.message || err.msg || err
     })
 })
 
