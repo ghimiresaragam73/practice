@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app.routing';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SharedModule } from './shared/shared.module';
+import { ProductsModule } from './products/products.module';
 
 
 
@@ -22,14 +23,15 @@ import { SharedModule } from './shared/shared.module';
     AuthModule,
     UsersModule,
     SharedModule,
+    ProductsModule,
     ToastrModule.forRoot()
   ],
   providers: [
-  
+
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
 
 }
 

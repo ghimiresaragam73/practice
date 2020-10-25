@@ -12,6 +12,7 @@ import { MsgService } from './../../shared/services/msg.service'
 export class LoginComponent {
     user;
     submitting: boolean = false;
+    rememberMe: boolean = false;
     constructor(public router: Router,
         public authService: AuthService,
         public msgService: MsgService) {
@@ -19,14 +20,24 @@ export class LoginComponent {
             username: '',
             password: '',
         }
+        if (localStorage.getItem('remember') && localStorage.getItem('token')) {
+            this.router.navigate(['/user']);
+        }
     }
+
     login() {
         this.submitting = true;
         this.authService.login(this.user)
             .subscribe(
-                data => {
+                (data: any) => {
                     console.log('data is >>', data);
                     this.msgService.showSuccess('Login Successful');
+                    /* Store data in localstorage */
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    if (this.rememberMe) {
+                        localStorage.setItem('remember', 'true');
+                    }
                     this.router.navigate(['/user']);
                 },
                 err => {
@@ -40,6 +51,11 @@ export class LoginComponent {
         }, 3000);
         /* alert('I am called'); */
         this.submitting = false;
+    }
+
+    rememberMeChanged() {
+        this.rememberMe = !this.rememberMe;
+        console.log('remember me clicked ', this.rememberMe);
     }
 }
 

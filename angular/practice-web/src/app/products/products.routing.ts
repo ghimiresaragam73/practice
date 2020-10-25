@@ -1,0 +1,38 @@
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from '@angular/router';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { ListProductComponent } from './list-product/list-product.component';
+import { SearchProductComponent } from './search-product/search-product.component';
+
+const productRoute: Routes = [
+    {
+        path: 'add',
+        component: AddProductComponent
+    },
+    {
+        path: 'list',
+        component: ListProductComponent
+    },
+    {
+        path: 'search',
+        component: SearchProductComponent
+    },
+    {
+        path: 'edit/:id',
+        component: EditProductComponent
+    }
+]
+
+@NgModule({
+    imports: [
+        RouterModule.forChild(productRoute)
+    ],
+    exports: [
+        RouterModule
+    ]
+})
+
+export class ProductRoutingModule {
+
+}

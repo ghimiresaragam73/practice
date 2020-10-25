@@ -1,0 +1,20 @@
+<ul>
+    <li>
+        <a  routerLink="/user">Home</a>
+</li> <!-- Use router link instead of home() not working now-->
+    <li>
+        <a routerLink="/user/profile">Profile</a>
+        </li>
+    <li>
+        <a routerLink="/product/add" >Add Product</a>
+        </li>
+    <li>
+        <a routerLink="/product/list">View Product</a>
+        </li>
+    <li>
+        <a routerLink="/product/search" >Search Product</a>
+        </li>
+    <li>
+        <a (click)="logOut()" routerLink="/auth/login" >Logout</a>
+    </li>
+</ul>

@@ -16,9 +16,13 @@ const appRoute: Routes = [
     }, {
         path: 'user',
         loadChildren: './users/users.module#UsersModule'
-    },{
-        path:'**',
-        component:PageNotFoundComponent
+    },
+    {
+        path: 'product',
+        loadChildren: './products/products.module#ProductsModule'
+    }, {
+        path: '**',
+        component: PageNotFoundComponent
     }
 ]
 
