@@ -1,1 +1,39 @@
-<p>list-product works!</p>
+<h2>View Product</h2>
+<div *ngIf="loading">
+    <app-loader></app-loader>
+</div>
+<table *ngIf="!loading" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>S.N</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>Color</th>
+            <th>Price</th>
+            <th>Tags</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products;let i =index">
+            <td>{{i+1}}</td>
+            <td *ngIf="product.name">{{product.name}}</td>
+            <td *ngIf="!product.name">N/A</td>
+            <td *ngIf="product.category">{{product.category}}</td>
+            <td *ngIf="!product.category">N/A</td>
+            <td *ngIf="product.brand">{{product.brand}}</td>
+            <td *ngIf="!product.brand">N/A</td>
+            <td *ngIf="product.color">{{product.color}}</td>
+            <td *ngIf="!product.color">N/A</td>
+            <td *ngIf="product.price">{{product.price}}</td>
+            <td *ngIf="!product.price">N/A</td>
+            <td *ngIf="product.tags">{{product.tags}}</td>
+            <td *ngIf="!product.tags">N/A</td>
+            <td>
+                <button routerLink="/product/edit/{{product._id}}" class="btn btn-primary">Edit</button>
+                <button (click)="removeProduct(product._id,i)" class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

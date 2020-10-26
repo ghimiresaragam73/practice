@@ -1,1 +1,58 @@
-<p>edit-product works!</p>
+<h2>Edit Product</h2>
+<div *ngIf="loading">
+    <app-loader></app-loader>
+</div>
+<form *ngIf="!loading" #productForm="ngForm" class="form-group" novalidate>
+    <label for="name">Name</label>
+    <input class="form-control" type="text" name="name" placeholder="Name" [(ngModel)]="product.name">
+
+    <label for="category">category</label>
+    <input class="form-control" type="text" name="category" placeholder="category" [(ngModel)]="product.category">
+
+    <label for="brand">brand</label>
+    <input class="form-control" type="text" name="brand" placeholder="brand" [(ngModel)]="product.brand">
+
+    <label for="color">color</label>
+    <input class="form-control" type="text" name="color" placeholder="color" [(ngModel)]="product.color">
+
+    <label for="price">price</label>
+    <input class="form-control" type="number" name="price" placeholder="price" [(ngModel)]="product.price">
+
+    <label for="modelNo">modelNo</label>
+    <input class="form-control" type="text" name="modelNo" placeholder="modelNo" [(ngModel)]="product.modelNo">
+
+    <label for="tags">tags</label>
+    <input class="form-control" type="text" name="tags" placeholder="tags" [(ngModel)]="product.tags">
+
+    <label for="quantity">quantity</label>
+    <input class="form-control" type="number" name="quantity" placeholder="quantity" [(ngModel)]="product.quantity">
+
+    <label for="discription">discription</label>
+    <input class="form-control" type="text" name="discription" placeholder="discription"
+        [(ngModel)]="product.discription">
+
+    <label for="warrentyStatus">warrentyStatus</label>
+    <input class="form-control" type="text" name="warrentyStatus" placeholder="warrentyStatus"
+        [(ngModel)]="product.warrentyStatus">
+
+    <label for="warrentyPeriod">warrentyPeriod</label>
+    <input class="form-control" type="text" name="warrentyPeriod" placeholder="warrentyPeriod"
+        [(ngModel)]="product.warrentyPeriod">
+
+    <label for="size">size</label>
+    <input class="form-control" type="text" name="size" placeholder="size" [(ngModel)]="product.size">
+
+    <label for="varient">varient</label>
+    <input class="form-control" type="text" name="varient" placeholder="varient" [(ngModel)]="product.varient">
+
+    <label for="manuDate">manuDate</label>
+    <input class="form-control" type="text" name="manuDate" placeholder="manuDate" [(ngModel)]="product.manuDate">
+
+    <label for="expiryDate">expiryDate</label>
+    <input class="form-control" type="text" name="expiryDate" placeholder="expiryDate" [(ngModel)]="product.expiryDate">
+
+    <label for="origin">origin</label>
+    <input class="form-control" type="text" name="origin" placeholder="origin" [(ngModel)]="product.origin">
+    <button class="btn btn-primary" [disabled]="productForm.invalid" *ngIf="!submitting" (click)="edit()">Edit</button>
+    <button class="btn btn-info" disabled *ngIf="submitting">Editing</button>
+</form>

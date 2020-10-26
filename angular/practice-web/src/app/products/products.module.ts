@@ -6,6 +6,9 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { SearchProductComponent } from './search-product/search-product.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProductRoutingModule } from './products.routing';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductService } from './services/products.service';
 
 
 
@@ -19,7 +22,12 @@ import { ProductRoutingModule } from './products.routing';
   imports: [
     CommonModule,
     SharedModule,
-    ProductRoutingModule
+    FormsModule,
+    ProductRoutingModule,
+    HttpClientModule
+  ],
+  providers: [
+    ProductService
   ]
 })
 export class ProductsModule { }

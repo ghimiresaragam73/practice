@@ -5,6 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MsgService } from './services/msg.service';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { RouterModule } from '@angular/router';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -12,15 +13,16 @@ import { RouterModule } from '@angular/router';
   declarations: [
     PageNotFoundComponent,
     FooterComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
     RouterModule
   ],
   exports: [
-    FooterComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoaderComponent
   ],
   providers: [
     MsgService
