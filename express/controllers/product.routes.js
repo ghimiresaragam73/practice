@@ -96,7 +96,7 @@ router.route('/search')
     .post(function (req, res, next) {
         var condition = {};
         var searchCondition = productHelp(condition, req.body);
-        console.log('Search Condition>>>',searchCondition);
+        console.log('Search Condition>>>', searchCondition);
         productModel.find(searchCondition)
             .exec(function (err, products) {
                 if (err) {
@@ -108,7 +108,7 @@ router.route('/search')
             })
     })
 
-    router.route('/:id')
+router.route('/:id')
     .get(function (req, res, next) {
         productModel.findOne({
             _id: req.params.id
@@ -157,7 +157,7 @@ router.route('/search')
                 }
             })
     })
-    .delete(authorize, function (req, res, next) {
+    .delete(function (req, res, next) {
         productModel.findById(req.params.id)
             .then(function (product) {
                 if (product) {
