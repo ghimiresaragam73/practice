@@ -7,6 +7,7 @@ var config = require('./config/index');
 const morgan = require('morgan');
 const cors = require('cors');
 
+express.use('/files', app.static(path.join(__dirname, 'files')));
 express.use(bodyParser.urlencoded({ extended: false }));
 express.use(bodyParser.json());
 //express.use(bodyParser());

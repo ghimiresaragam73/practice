@@ -53,6 +53,14 @@
 
     <label for="origin">origin</label>
     <input class="form-control" type="text" name="origin" placeholder="origin" [(ngModel)]="product.origin">
+
+    <div>
+        <span>Image</span>
+        <img src="{{imageUrl}}{{product.image}}" alt="" width='600px'>
+    </div>
+<label for="image">Choose New Image</label>
+<input class="form-control" type="file" name="image" (change)="fileChanged($event)">
+
     <button class="btn btn-primary" [disabled]="productForm.invalid" *ngIf="!submitting" (click)="edit()">Edit</button>
     <button class="btn btn-info" disabled *ngIf="submitting">Editing</button>
 </form>

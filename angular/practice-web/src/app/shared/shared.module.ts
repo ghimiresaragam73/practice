@@ -6,6 +6,7 @@ import { MsgService } from './services/msg.service';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { RouterModule } from '@angular/router';
 import { LoaderComponent } from './loader/loader.component';
+import { UploadService } from './services/upload.service';
 
 
 
@@ -25,7 +26,8 @@ import { LoaderComponent } from './loader/loader.component';
     LoaderComponent
   ],
   providers: [
-    MsgService
+    MsgService,
+    UploadService
   ] //service has global scope
 })
 export class SharedModule { }

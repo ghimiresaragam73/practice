@@ -16,6 +16,7 @@ export class Product {
     origin: string;
     image: string;
     tags: string;
+    _id:string;
     constructor(details: any) {
         this.name = details.name || '';
         this.category = details.category || '';
@@ -34,5 +35,6 @@ export class Product {
         this.origin = details.origin || '';
         this.image = details.image || '';
         this.tags = details.tags || '';
+        this._id= details._id || '';
     }
 }

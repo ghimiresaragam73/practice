@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MsgService } from 'src/app/shared/services/msg.service';
+import { environment } from 'src/environments/environment';
 import { ProductService } from '../services/products.service';
 
 @Component({
@@ -11,11 +12,14 @@ import { ProductService } from '../services/products.service';
 export class ListProductComponent implements OnInit {
   products;
   loading: boolean = true;
+  imageUrl:string;
   constructor(
     public msgService: MsgService,
     public productService: ProductService,
     public router: Router
-  ) { }
+  ) { 
+    this.imageUrl = environment.imageUrl;
+  }
 
   ngOnInit(): void {
 

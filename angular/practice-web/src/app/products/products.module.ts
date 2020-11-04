@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
@@ -9,6 +8,7 @@ import { ProductRoutingModule } from './products.routing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/products.service';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -20,11 +20,11 @@ import { ProductService } from './services/products.service';
     SearchProductComponent
   ],
   imports: [
-    CommonModule,
     SharedModule,
     FormsModule,
     ProductRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [
     ProductService
