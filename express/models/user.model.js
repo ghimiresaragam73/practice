@@ -38,7 +38,8 @@ var userSchema = new Schema({
     },
     updatedBy: {
         type: String
-    }
+    },
+    passwordResetExpiry:Date
 }, {
     timestamps: true
 });

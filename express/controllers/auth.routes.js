@@ -5,7 +5,20 @@ var userModel = require('./../models/user.model');
 var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
 var config = require('./../config/index');
+const sender = require('./../config/nodemailer.config');
 
+function prepareEmail(details) {
+    return {
+        from: 'Product Management<noreply@abcd.com>',
+        to: details.email,
+        subject: 'Forgot Password✔',
+        text: 'forgot password',
+        html: `<p>Hi <strong>${details.name}</strong></p>
+        <p>We noticed that you are having trouble logginb into our system, please use the link below to reset the password</p>
+        <p><a href="${details.link}" target="_blank">Reset Password</a></p>
+        <p>If you have not requested to reset your password, kindly ignore this email.</p>`
+    }
+}
 
 router.get('/', function (req, res, next) {
     res.json({
@@ -14,7 +27,13 @@ router.get('/', function (req, res, next) {
 })
 router.post('/login', function (req, res, next) {
     userModel.findOne({
-        username: req.body.username
+        $or: [
+            {
+                username: req.body.username,
+            }, {
+                email: req.body.username
+            }
+        ]
     }).exec(function (err, user) {
         if (user) {
             var isMatched = passwordHash.verify(req.body.password, user.password);
@@ -68,4 +87,78 @@ router.post('/register', function (req, res, next) {
         res.json(user);
     })
 })
+
+router.post('/forgot-password', (req, res, next) => {
+    userModel.findOne({
+        email: req.body.email
+    }).exec((err, user) => {
+        if (err) {
+            return next(err);
+        }
+        if (user) {
+            var resetLink = req.headers.origin + '/auth/reset-password/' + user.username;
+            var mailBody = prepareEmail({
+                name: user.name,
+                email: user.email,
+                link: resetLink
+            });
+            console.log('Mail Body>>>', mailBody);
+            user.passwordResetExpiry = new Date().getTime() + 1000 * 60 * 60 * 24 * 2;
+            // user.password = null;
+            user.save((err, saved) => {
+                if (err) {
+                    return next(err);
+                }
+                sender.sendMail(mailBody, (err, done) => {
+                    if (err) {
+                        return next(err);
+                    } else {
+                        res.json(done);
+                    }
+                })
+            })
+
+        } else {
+            return next({
+                message: 'User not registered with provided email'
+            })
+        }
+    })
+
+})
+
+router.post('/reset-password/:username', (req, res, next) => {
+    var username = req.params.username;
+    userModel.findOne({
+        username: username
+    }).exec((err, user) => {
+        if (err) {
+            return next(err);
+        }
+        if (user) {
+            var resetTime = new Date(user.passwordResetExpiry).getTime();
+            var now = Date.now();
+            if (resetTime > now) {
+                user.password = passwordHash.generate(req.body.password);
+                user.passwordResetExpiry = null;
+                user.save((err, done) => {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.json(done);
+                })
+            } else {
+                return next({
+                    message: 'Password reset link expired'
+                })
+            }
+
+        } else {
+            next: ({
+                message: 'User not Found'
+            })
+        }
+    })
+})
+
 module.exports = router;

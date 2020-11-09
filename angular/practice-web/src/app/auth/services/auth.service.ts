@@ -10,7 +10,7 @@ export class AuthService {
     constructor(
         public http: HttpClient
     ) {
-        this.url = environment.baseUrl+'/auth';
+        this.url = environment.baseUrl + '/auth';
     }
     /* Service is a file where we use repeatedly used task performing logic */
     /* Service in angular is used to call Backend API */
@@ -33,6 +33,10 @@ export class AuthService {
     }
 
     forgotPassword(email: string) {
+        return this.http.post(this.url + '/forgot-password', { email: email }, this.getOptions());
+    }
 
+    resetPassword(data:any){
+        return this.http.post(this.url + '/reset-password/'+data.username, data, this.getOptions());
     }
 }

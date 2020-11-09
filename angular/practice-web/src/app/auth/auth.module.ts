@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth.routing';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from './services/auth.service';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
@@ -16,7 +17,8 @@ import { AuthService } from './services/auth.service';
   declarations: [
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
