@@ -16,7 +16,9 @@ export class Product {
     origin: string;
     image: string;
     tags: string;
-    _id:string;
+    _id: string;
+    minPrice: number;
+    maxPrice: number;
     constructor(details: any) {
         this.name = details.name || '';
         this.category = details.category || '';
@@ -35,6 +37,8 @@ export class Product {
         this.origin = details.origin || '';
         this.image = details.image || '';
         this.tags = details.tags || '';
-        this._id= details._id || '';
+        this._id = details._id || '';
+        this.minPrice = details.minPrice || '';
+        this.maxPrice = details.maxPrice || '';
     }
 }

@@ -94,8 +94,26 @@ router.route('/search')
             })
     })
     .post(function (req, res, next) {
+        console.log('req.body is>>>', req.body);
         var condition = {};
         var searchCondition = productHelp(condition, req.body);
+
+        if(req.body.minPrice){
+            searchCondition.price={
+                $gte : req.body.minPrice
+            }
+        }
+        if(req.body.maxPrice){
+            searchCondition.price= {
+                $lte: req.body.maxPrice
+            }
+        }
+        if(req.body.minPrice && req.body.maxPrice){
+            searchCondition.price= {
+                $gte: req.body.minPrice,
+                $lte: req.body.maxPrice
+            }
+        }
         console.log('Search Condition>>>', searchCondition);
         productModel.find(searchCondition)
             .exec(function (err, products) {

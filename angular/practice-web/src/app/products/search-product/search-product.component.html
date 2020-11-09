@@ -1,1 +1,41 @@
-<p>search-product works!</p>
+<h2>Search Product</h2>
+<form *ngIf="!result" #productForm="ngForm" class="form-group" novalidate>
+   
+    <label for="category">category</label>
+   <select class="form-control" [(ngModel)]="product.category" (change)="categoryChanged(product.category)" name="category" >
+       <option disabled value="">(Select Category)</option>
+       <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+   </select>
+
+   <div *ngIf="showName">
+    <label for="name">Name</label>
+    <select class="form-control" [(ngModel)]="product.name"  name="name" >
+        <option disabled value="">(Select Name)</option>
+        <option *ngFor="let name of names" [value]="name.name">{{name.name}}</option>
+    </select>
+   </div>
+
+   <label for="minPrice">minPrice</label>
+   <input class="form-control" type="number" name="minPrice" [(ngModel)]="product.minPrice">
+   <label for="maxPrice">maxPrice</label>
+   <input class="form-control" type="number" name="maxPrice" [(ngModel)]="product.maxPrice">
+
+    <label for="brand">brand</label>
+    <input class="form-control" type="text" name="brand" placeholder="brand" [(ngModel)]="product.brand">
+
+    <label for="color">color</label>
+    <input class="form-control" type="text" name="color" placeholder="color" [(ngModel)]="product.color">
+
+    <label for="modelNo">modelNo</label>
+    <input class="form-control" type="text" name="modelNo" placeholder="modelNo" [(ngModel)]="product.modelNo">
+
+    <label for="tags">tags</label>
+    <input class="form-control" type="text" name="tags" placeholder="tags" [(ngModel)]="product.tags">
+
+    <button class="btn btn-primary" [disabled]="productForm.invalid" *ngIf="!submitting" (click)="search()">Search</button>
+    <button class="btn btn-info" disabled *ngIf="submitting">Searching</button>
+</form>
+
+<div *ngIf="result">
+    <app-list-product [data]="searchResult"></app-list-product>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MsgService } from 'src/app/shared/services/msg.service';
 import { environment } from 'src/environments/environment';
@@ -12,28 +12,33 @@ import { ProductService } from '../services/products.service';
 export class ListProductComponent implements OnInit {
   products;
   loading: boolean = true;
-  imageUrl:string;
+  imageUrl: string;
+  @Input() data;
   constructor(
     public msgService: MsgService,
     public productService: ProductService,
     public router: Router
-  ) { 
+  ) {
     this.imageUrl = environment.imageUrl;
   }
 
   ngOnInit(): void {
-
-    this.productService.get().subscribe(
-      data => {
-        this.loading = false;
-        this.products = data;
-      },
-      error => {
-        this.msgService.showError(error);
-        this.loading = false;
-      }
-    )
+    if (!this.data) {
+      this.productService.get().subscribe(
+        data => {
+          this.products = data;
+          this.loading=false;
+        },
+        error => {
+          this.msgService.showError(error);
+        }
+      )
+    }else{
+      this.products= this.data;
+      this.loading=false;
+    }
   }
+
 
   removeProduct(id, i) {
     let removeConfirm = confirm("Are you sure to delete?");
