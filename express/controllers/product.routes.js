@@ -29,6 +29,8 @@ var upload = multer({
 var authorize = require('./../middlewares/authorize');
 var productHelp = require('./../helper/productHelp');
 
+module.exports = function(ev){
+
 router.route('/')
     .get(function (req, res, next) {
         productModel.find({})
@@ -37,6 +39,7 @@ router.route('/')
                 if (err) {
                     return next(err);
                 }
+                ev.emit('product',products);
                 res.json(products);
             })
     })
@@ -196,4 +199,5 @@ router.route('/:id')
 
 
 
-module.exports = router;
+return router;
+}

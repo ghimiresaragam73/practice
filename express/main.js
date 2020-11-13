@@ -12,12 +12,31 @@ express.use(bodyParser.urlencoded({ extended: false }));
 express.use(bodyParser.json());
 //express.use(bodyParser());
 
+//events
+var events = require('events');
+var event1 = new events.EventEmitter();
+
+//trigger part (emit method is used to trigger)
+//listen part (on method is used to listen the event)
+//listening part
+event1.on('ram', function (data) {
+    console.log('I am ram event listening>>',data);
+});
+event1.on('product',function(data){
+    console.log('data in products>>>>',data);
+});
+
+/* setTimeout(() => {
+    event1.emit('ram', 'hello');
+}, 3000); */
+
+
 /* Routing level middleware */
 var authRouter = require('./controllers/auth.routes');
 var userRouter = require('./controllers/user.routes');
 var commentRouter = require('./controllers/comment.routes');
 var loginRouter = require('./controllers/login.routes');
-var productRouter = require('./controllers/product.routes')
+var productRouter = require('./controllers/product.routes')(event1);
 
 /* Third Party Middleware */
 express.use(morgan('dev'));
